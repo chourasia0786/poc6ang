@@ -3,7 +3,7 @@ pipeline {
      environment {
         dockerImage = ''
         registry = 'sumithpe/poc6ang'
-        registryCredential = '21bc1763-4f9a-439a-94e9-22f00d677ea3'
+        registryCredential = 'dockerhub_id'
     }
     stages {
         stage('Build Docker Images') {
