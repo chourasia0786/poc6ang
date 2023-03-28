@@ -9,11 +9,20 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    dockerImage = docker.build registry
+                    dockerImage = docker.build $registry
                 }
             }
         }
-      
+     stage('Upload to DockerHub'){
+            steps {
+                script {
+                        docker.withRegistry('', $dockerhub_id){
+                            dockerImage.push()
+                        }
+                }
+            }
+        }
+ 
         stage('docker stop container') {
          steps {
             sh 'docker ps -f name=poc6angcon  -q | xargs --no-run-if-empty docker container stop'
