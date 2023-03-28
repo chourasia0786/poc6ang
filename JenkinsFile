@@ -9,8 +9,6 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-		    echo "$registryCredential"
-                    echo "$dockerhub_id"
                     dockerImage = docker.build registry
                 }
             }
@@ -18,7 +16,7 @@ pipeline {
         stage('Upload to DockerHub'){
             steps {
                 script {
-                        docker.withRegistry('', $registryCredential){
+                        docker.withRegistry('', $dockerhub_id){
                             dockerImage.push()
                         }
                 }
