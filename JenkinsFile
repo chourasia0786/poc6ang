@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
 		    echo registry
-                    dockerImage = docker.build("registry")
+                    dockerImage = docker.build("sumithpe/poc6ang")
                 }
             }
         }
