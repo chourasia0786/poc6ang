@@ -22,7 +22,7 @@ stage('Upload to DockerHub'){
                         }
                 }
             }
-        }
+        
 
 	
  
