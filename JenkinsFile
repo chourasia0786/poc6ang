@@ -6,6 +6,23 @@ pipeline {
         registryCredential = 'ee3532ec-d2a2-4455-930c-47e9f70e041b'
     }
     stages {
+stage('Build Docker Images') {
+            steps {
+                script {
+                    echo registry
+                    sh 'docker image build -t sumithpe/poc6ang .'
+                }
+            }
+        }
+     stage('Upload to DockerHub'){
+            steps {
+                script {
+                        docker.withRegistry('', registryCredential){
+                            sh 'docker image push sumithpe/poc6ang'
+                        }
+                }
+            }
+        }
 
 	
  
@@ -18,7 +35,7 @@ pipeline {
        stage('Docker Run') {
         steps {
             script {
-                sh 'docker container run -d -p 4200:80 --rm --name poc6angcon poc6ang'
+                sh 'docker container run -d -p 4200:80 --rm --name poc6angcon sumithpe/poc6ang'
                 }
             }
         }
