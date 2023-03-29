@@ -35,7 +35,7 @@ stage('Upload to DockerHub'){
        stage('Docker Run') {
         steps {
             script {
-                sh 'docker container run -d -p 4200:80 --rm --name poc6angcon sumithpe/poc6ang'
+                sh 'docker container run -d -v /var/run/docker.sock:/var/run/docker.sock -p 4200:80 --rm --name poc6angcon sumithpe/poc6ang'
                 }
             }
         }
