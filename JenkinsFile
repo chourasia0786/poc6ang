@@ -17,7 +17,7 @@ stage('Build Docker Images') {
 stage('Upload to DockerHub'){
             steps {
                 script {
-                       sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u @DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                       sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			sh 'docker image push sumithpe/poc6ang:latest'
                         }
                 }
