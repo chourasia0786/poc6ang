@@ -3,7 +3,7 @@ pipeline {
      environment {
         dockerImage = ''
         registry = 'sumithpe/poc6ang'
-        registryCredential = 'ee3532ec-d2a2-4455-930c-47e9f70e041b'
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
     }
     stages {
 stage('Build Docker Images') {
@@ -11,6 +11,15 @@ stage('Build Docker Images') {
                 script {
                     echo registry
                     sh 'docker image build -t sumithpe/poc6ang .'
+                }
+            }
+        }
+stage('Upload to DockerHub'){
+            steps {
+                script {
+                       sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u @DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			sh 'docker image push sumithpe/poc6ang:latest'
+                        }
                 }
             }
         }
