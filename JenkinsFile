@@ -14,15 +14,6 @@ stage('Build Docker Images') {
                 }
             }
         }
-     stage('Upload to DockerHub'){
-            steps {
-                script {
-                        docker.withRegistry('', registryCredential){
-                            sh 'docker image push sumithpe/poc6ang'
-                        }
-                }
-            }
-        }
 
 	
  
