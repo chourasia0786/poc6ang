@@ -18,7 +18,7 @@ pipeline {
        stage('Docker Run') {
         steps {
             script {
-                sh sudo docker container run -d -p 4200:80 --rm --name poc6angcon poc6ang
+                sh 'sudo docker container run -d -p 4200:80 --rm --name poc6angcon poc6ang'
                 }
             }
         }
