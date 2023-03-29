@@ -6,6 +6,8 @@ pipeline {
         registryCredential = 'ee3532ec-d2a2-4455-930c-47e9f70e041b'
     }
     stages {
+
+	
  
         stage('docker stop container') {
          steps {
@@ -16,7 +18,7 @@ pipeline {
        stage('Docker Run') {
         steps {
             script {
-                dockerImage.run("-p 8019:80 --rm --name poc6angcon")
+                sh sudo docker container run -d -p 4200:80 --rm --name poc6angcon poc6ang
                 }
             }
         }
