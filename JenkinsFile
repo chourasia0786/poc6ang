@@ -1,7 +1,5 @@
 pipeline {
-     agent{
-     label 'poc6-ang'
-     }
+     agent none
      environment {
         dockerImage = ''
         registry = 'sumithpe/poc6ang'
@@ -9,6 +7,9 @@ pipeline {
     }
     stages {
 stage('Build Docker Images') {
+{
+     label 'poc6-ang'
+     }
             steps {
                 script {
                     echo registry
@@ -17,6 +18,9 @@ stage('Build Docker Images') {
             }
         }
 stage('Upload to DockerHub'){
+{
+     label 'poc6-ang'
+     }
             steps {
                 script {
                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
@@ -29,16 +33,37 @@ stage('Upload to DockerHub'){
 	
  
         stage('docker stop container') {
+        {
+     label 'poc6-ang'
+     }
          steps {
             sh 'docker ps -f name=poc6angcon  -q | xargs --no-run-if-empty docker container stop'
             sh 'docker container ls -a -fname=poc6angcon -q | xargs -r docker container rm'
          }
        }
        stage('Docker Run') {
+       {
+     label 'poc6-ang'
+     }
         steps {
             script {
                 sh 'docker container run -d -p 4200:80 --rm --name poc6angcon sumithpe/poc6ang'
                 }
+            }
+        }
+        
+        
+        
+        stage('Push to harbor'){
+          agent{
+        label 'harbor_node'
+    }
+            steps{
+            sh "docker image prune -af"
+                sh "docker image pull sumithpe/poc6ang"
+                  sh "docker image tag sumithpe/poc6ang 20.21.104.152/employeerreqistartion/poc6ang"
+                sh 'echo $HARBOR_CREDENTIALS_PSW | docker login 20.21.104.152 -u $HARBOR_CREDENTIALS_USR --password-stdin'  
+                sh "docker image push 20.21.104.152/employeerreqistartion/poc6ang"
             }
         }
     }
