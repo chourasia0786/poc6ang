@@ -4,6 +4,8 @@ pipeline {
         dockerImage = ''
         registry = 'sumithpe/poc6ang'
         DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
+        GITHUB_CREDENTIALS= credentials('github_id')
+        HARBOR_CREDENTIALS = credentials('harbor_id')
     }
     stages {
 stage('Build Docker Images') {
