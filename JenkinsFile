@@ -7,7 +7,7 @@ pipeline {
     }
     stages {
 stage('Build Docker Images') {
-{
+agent{
      label 'poc6-ang'
      }
             steps {
@@ -18,7 +18,7 @@ stage('Build Docker Images') {
             }
         }
 stage('Upload to DockerHub'){
-{
+agent{
      label 'poc6-ang'
      }
             steps {
@@ -33,7 +33,7 @@ stage('Upload to DockerHub'){
 	
  
         stage('docker stop container') {
-        {
+       agent{
      label 'poc6-ang'
      }
          steps {
@@ -42,7 +42,7 @@ stage('Upload to DockerHub'){
          }
        }
        stage('Docker Run') {
-       {
+       agent{
      label 'poc6-ang'
      }
         steps {
