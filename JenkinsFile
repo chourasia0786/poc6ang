@@ -1,5 +1,7 @@
 pipeline {
-     agent any
+     agent{
+     label 'poc6-ang'
+     }
      environment {
         dockerImage = ''
         registry = 'sumithpe/poc6ang'
